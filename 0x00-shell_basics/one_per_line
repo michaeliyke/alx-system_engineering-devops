@@ -1,0 +1,2 @@
+#!/bin/bash
+ls -1 # One file per line - simple
