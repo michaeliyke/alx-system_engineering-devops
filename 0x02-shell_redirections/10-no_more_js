@@ -1,2 +1,2 @@
 #!/bin/bash
-for i in $(find . -type f -regex *.js); do rm $i; done
+find . -type f -regex ".*\.js$" -delete
