@@ -1,2 +1,2 @@
 #!/bin/bash
-tr -d "cC" /dev//stdin
+tr -d "cC" < /dev/stdin
