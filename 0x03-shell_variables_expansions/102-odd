@@ -1,0 +1,2 @@
+#!/bin/bash
+cat /dev/stdin | paste -d, - - | tr -s ',' | cut -d, -f1
