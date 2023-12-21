@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Bash script that displays Best School 10 times, say hi on 9th iteration
+# must use the while loop (for and until are forbidden)
+i=0
+while ((i < 10)); do
+	echo "Best School";
+	if (( i == 8 )); then echo "Hi"; fi
+	((i++))
+done
