@@ -3,14 +3,15 @@
 
 if [ -e "school" ]; then
 	echo "school file exists";
-	if [ -f "school" ]; then
-		echo "school is a regular file";
-		if [ -s "school" ]; then
-			echo "school file is not empty";
-			else
-				echo "school file is empty"
-			fi
-	fi
 else
-	if [ -n "school" ]; then echo "school file does not exist"; fi
+	echo "school file does not exist";
+fi
+
+if [ -f "school" ]; then
+	echo "school is a regular file";
+	if [ -s "school" ]; then
+		echo "school file is not empty";
+		else
+			echo "school file is empty"
+		fi
 fi
