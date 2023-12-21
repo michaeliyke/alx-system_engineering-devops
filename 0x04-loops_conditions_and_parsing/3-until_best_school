@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Bash script that displays Best School 10 times
+# must use the until loop (for and while are forbidden)
+i=0
+until ((i >= 10)); do
+	echo "Best School";
+	((i++))
+done
