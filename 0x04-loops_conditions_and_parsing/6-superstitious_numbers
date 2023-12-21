@@ -6,9 +6,13 @@
 i=0
 while ((i < 20)); do
 	echo $((i+1))
-	if (( i == 3 )); then echo "bad luck from China"; fi
-	if (( i == 8 )); then echo "bad luck from Japan"; fi
-	if (( i == 16 )); then echo "bad luck from Italy"; fi
-
+	case $i in
+		3) echo "bad luck from China"
+		;;
+		8) echo "bad luck from Japan"
+		;;
+		16) echo "bad luck from Italy"
+		;;
+		esac
 	((i++))
 done
