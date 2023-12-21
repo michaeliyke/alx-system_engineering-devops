@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# AUTOMATICALLY LOGIN FROM Host me to Host them using ssh
+# First log in on A as user a and generate a pair of authentication keys. Do not enter a passphrase:
+# ssh-keygen -t rsa
+# Now use ssh to create a directory ~/.ssh as user b on B.
+#  ssh b@B mkdir -p .ssh
+# Finally append a's new public key to b@B:.ssh/authorized_keys and enter b's password one last time:
+# cat .ssh/id_rsa.pub | ssh b@B 'cat >> .ssh/authorized_keys'
+# From now on you can log into B as b from A as a without password:
+# ssh b@B
+
+
+# Generate key pair without a passphrase
+# Means you won't unlock your key each time you use it
+ssh-keygen -t rsa
+
