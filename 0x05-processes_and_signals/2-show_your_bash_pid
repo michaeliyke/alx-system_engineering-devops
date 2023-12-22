@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Bash script that displays a list of currently running processes
+# shellcheck disable=SC2009
+# 	Displays lines containing the bash word
+ps --forest -eo user,pid,%cpu,%mem,vsz,rss,tty=TTY,stat,start=START,\
+time,cmd=COMMAND | grep "bash"
