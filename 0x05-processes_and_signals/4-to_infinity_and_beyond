@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Bash script that displays To infinity and beyond indefinitely
+
+# Following function handles ctrl_c keyboard i.e the SIGINT signal
+function ctrl_c()
+{
+	echo "Here we go for now"
+	exit 0
+}
+
+trap ctrl_c 2
+
+while true; do
+	echo "To infinity and beyond"
+	sleep 2
+done
