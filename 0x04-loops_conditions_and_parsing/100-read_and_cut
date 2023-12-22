@@ -12,6 +12,5 @@ if [ -e "$f" ]; then
 		echo "$line" | cut -d":" -f1,4,6
 	done
 	# close f
-	3<&-
-
+	3<&-:
 fi
