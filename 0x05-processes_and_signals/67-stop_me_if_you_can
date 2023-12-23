@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 # Bash script that stops 7-highlander process
-# We are using 9 meaning the SIGKILL instead opf 15 which the SIGTERM
-# SIGKILL is more forceful although we can still use 15 as well
-pkill -9 -f "7-highlander"
+# We are using 15 meaning SIGTERM
+pkill -15 -f "7-highlander"
