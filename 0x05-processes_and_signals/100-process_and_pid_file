@@ -1,14 +1,34 @@
 #!/usr/bin/env bash
 # Bash script that displays To infinity and beyond indefinitely
 
-# Following function handles SIGTERM keyboard i.e the KILL signal
+# Following function handles SIGTERM i.e the KILL signal
 function terminate()
 {
-	echo "I am invincible!!!"
+	echo "I hate the kill command"
+	rm /var/run/myscript.pid
 	exit 0
 }
 
+# Following function handles SIGQUIT
+function quit()
+{
+	rm /var/run/myscript.pid
+	exit 0
+}
+
+# Following function handles SIGINT i.e the ctrl-c signal
+function ctrl_c()
+{
+	echo "Y U no love me?!"
+}
+
+# Save the pid of script to a file
+echo $$ > /var/run/myscript.pid
+
+# Traps for SIGINT, SIGQUIT and SIGTERM
 trap terminate SIGTERM
+trap quit SIGQUIT
+trap ctrl_c SIGINT
 
 while true; do
 	echo "To infinity and beyond"
