@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Bash script that displays To infinity and beyond indefinitely
+
+# Following function handles SIGTERM keyboard i.e the KILL signal
+function terminate()
+{
+	echo "I am invincible!!!"
+	exit 0
+}
+
+trap terminate SIGTERM
+
+while true; do
+	echo "To infinity and beyond"
+	sleep 2
+done
