@@ -76,13 +76,13 @@ case $1 in
 
 	stop)
 	# Do not stop if process not already running
-	if ! pid_f_exists ; then exit 0; fi
+	# if ! pid_f_exists ; then exit 0; fi
 	stop_proc
 	;;
 
 	restart)
 	# Do not restart if process not already running
-	if ! pid_f_exists ; then exit 0; fi
+	# if ! pid_f_exists ; then exit 0; fi
 	stop_proc
 	start_proc "restarted"
 		;;
