@@ -88,6 +88,16 @@ case $1 in
 	start_proc
 		;;
 
+	-p)
+	# Show the current contents of the pid file
+	cat "$pid_f"
+		;;
+
+	--pid)
+	# Show the current contents of the pid file
+	cat "$pid_f"
+		;;
+
 	*)
 	# Warn for any other input
 	show_usage
