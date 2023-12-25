@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+# Manages manage_my_process. (both files need to be pushed to git)
+
+# Requirements:
+
+# When passing the argument `start`:
+	# Starts `manage_my_process`
+	# Creates a file containing its PID in `/var/run/my_process.pid`
+	# Displays `manage_my_process started`
+# When passing the argument `stop`:
+	# Stops `manage_my_process`
+	# Deletes the file `/var/run/my_process.pid`
+	# Displays `manage_my_process stopped`
+# When passing the argument `restart`
+	# Stops `manage_my_process`
+	# Deletes the file `/var/run/my_process.pid`
+	# Starts `manage_my_process`
+	# Creates a file containing its PID in `/var/run/my_process.pid`
+# Displays `manage_my_process restarted`
+
+pid_f="/var/run/my_process.pid"
+
+# Starts the manage_my_process process
+function start_proc()
+{
+	# Only run the contents if script is running as root user
+	if [ "$EUID" -eq 0 ]; then
+		./manage_my_process
+		# pgrep -fn ./4-to_infinity_and_beyond -n flag shows the newest
+	fi
+}
+
+# Stops the manage_my_process process
+function stop_proc()
+{
+	# Check that script is running as root user and that pid file exists
+	if [ "$EUID" -eq 0 ] && [ -e $pid_f ]; then
+		pid="$(cat $pid_f)"
+		if [ -z $pid ]; then
+			return 7
+		fi
+		kill -15 $pid
+		rm $pid_f
+		echo "manage_my_process stopped"
+	fi
+}
+
+# Show script usage and exit
+function show_usage()
+{
+	echo "Usage: manage_my_process {start|stop|restart}"
+	exit 0
+}
+
+
+
+
+# Never more than 1 argument aside $0 of course
+if (( $# > 1 )); then show_usage; fi
+
+# You must pass an argument though
+if (( $# == 0)); then show_usage; fi
+
+case $1 in
+	start)
+	start_proc
+	;;
+	stop)
+	stop_proc
+	;;
+	restart)
+	stop_proc
+	start_proc
+		;;
+	*)
+	# Warn for any other input
+	show_usage
+	;;
+esac
