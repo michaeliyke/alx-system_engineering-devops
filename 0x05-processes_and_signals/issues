@@ -1,3 +1,8 @@
 Simply exit if process has already started
 Do not stop if not already running
 Do not restart if not already running
+
+Script starts manage_my_process process when started
+Script delete /var/run/my_process.pid file when stopped
+Script stops manage_my_process process when stopped
+Script displays manage_my_process restarted when restarted

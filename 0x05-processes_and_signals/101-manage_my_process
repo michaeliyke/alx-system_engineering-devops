@@ -21,9 +21,11 @@ pid_f="/var/run/my_process.pid"
 # Starts the manage_my_process process
 function start_proc()
 {
+	# status: {started|restarted}
+	status="$1"
 	# Only run the contents if script is running as root user
 	if [ "$EUID" -eq 0 ]; then
-		./manage_my_process
+		./manage_my_process "$status"
 		# pgrep -fn ./4-to_infinity_and_beyond -n flag shows the newest
 	fi
 }
@@ -69,7 +71,7 @@ if (( $# == 0)); then show_usage; fi
 
 case $1 in
 	start)
-	start_proc
+	start_proc "started"
 	;;
 
 	stop)
@@ -82,7 +84,7 @@ case $1 in
 	# Do not restart if process not already running
 	if ! pid_f_exists ; then exit 0; fi
 	stop_proc
-	start_proc
+	start_proc "restarted"
 		;;
 
 	-p)

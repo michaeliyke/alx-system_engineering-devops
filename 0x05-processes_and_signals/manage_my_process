@@ -8,10 +8,12 @@ pid_f="/var/run/my_process.pid"
 function create_pid_f()
 {
 	proc_id="$1"
+	# status: {started|restarted}
+	status="$2"
 	touch "$pid_f"
 	if [ -f "$pid_f" ]; then
 		echo "$proc_id" | sudo tee "$pid_f" > /dev/null 2>&1
-		echo "manage_my_process started"
+		echo "manage_my_process $status"
 	fi
 }
 
@@ -30,7 +32,9 @@ while true; do
 		echo "I am alive!" >> tmp/my_process
 		sleep 2
 	else
-		create_pid_f $$ # create the pid file only once
+	# status: {started|restarted}
+	status="$1"
+		create_pid_f $$ "$status" # create the pid file only once
 	fi
 done
 
