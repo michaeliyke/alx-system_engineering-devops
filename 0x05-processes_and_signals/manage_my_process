@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Indefinitley writes 'I am alive!' to tmp/my_process
 
+# The pid file
 pid_f="/var/run/my_process.pid"
 
+# create the pid file
 function create_pid_f()
 {
 	proc_id="$1"
