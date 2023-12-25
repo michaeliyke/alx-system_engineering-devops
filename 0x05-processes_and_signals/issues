@@ -1,1 +1,3 @@
 Simply exit if process has already started
+Do not stop if not already running
+Do not restart if not already running

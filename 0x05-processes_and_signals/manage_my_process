@@ -7,11 +7,14 @@ function create_pid_f()
 {
 	proc_id="$1"
 	touch "$pid_f"
-	if [ -e "$pid_f" ]; then
-		echo "$proc_id" | sudo tee "$pid_f"
+	if [ -f "$pid_f" ]; then
+		echo "$proc_id" | sudo tee "$pid_f" > /dev/null 2>&1
 		echo "manage_my_process started"
 	fi
 }
+
+# Quit if process is already running
+if [ -f "$pid_f" ]; then exit 0; fi
 
 # Create the log file if missing
 if [ ! -f tmp/my_process ]; then
@@ -21,7 +24,7 @@ fi
 
 # The logger machine
 while true; do
-	if [ -e "$pid_f" ]; then # does the pid file exist?
+	if [ -f "$pid_f" ]; then # does the pid file exist?
 		echo "I am alive!" >> tmp/my_process
 		sleep 2
 	else

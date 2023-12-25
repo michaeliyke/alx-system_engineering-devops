@@ -31,11 +31,19 @@ function start_proc()
 	fi
 }
 
+# Confirm that the pid file exists
+# 0 for true and 1 for false
+function pid_f_exists()
+{
+		if [ -f "/var/run/my_process.pid" ]; then return 0; fi
+		return 1
+}
+
 # Stops the manage_my_process process
 function stop_proc()
 {
 	# Check that script is running as root user and that pid file exists
-	if [ "$EUID" -eq 0 ] && [ -e $pid_f ]; then
+	if [ "$EUID" -eq 0 ] && [ -f $pid_f ]; then
 		pid="$(cat $pid_f)"
 		if [ -z "$pid" ]; then
 			return 7
@@ -66,13 +74,20 @@ case $1 in
 	start)
 	start_proc
 	;;
+
 	stop)
+	# Do not stop if process not already running
+	if ! pid_f_exists ; then exit 0; fi
 	stop_proc
 	;;
+
 	restart)
+	# Do not restart if process not already running
+	if ! pid_f_exists ; then exit 0; fi
 	stop_proc
 	start_proc
 		;;
+
 	*)
 	# Warn for any other input
 	show_usage
