@@ -5,12 +5,10 @@ pid_f="/var/run/my_process.pid"
 
 function create_pid_f()
 {
-	proc_id=$1
-	echo $1
-
-	touch $pid_f
-	if [ -e $pid_f ]; then
-		echo $pid | sudo tee $pid_f
+	proc_id="$1"
+	touch "$pid_f"
+	if [ -e "$pid_f" ]; then
+		echo "$proc_id" | sudo tee "$pid_f"
 		echo "manage_my_process started"
 	fi
 }
@@ -23,7 +21,7 @@ fi
 
 # The logger machine
 while true; do
-	if [ -e $pid_f ]; then # does the pid file exist?
+	if [ -e "$pid_f" ]; then # does the pid file exist?
 		echo "I am alive!" >> tmp/my_process
 		sleep 2
 	else
