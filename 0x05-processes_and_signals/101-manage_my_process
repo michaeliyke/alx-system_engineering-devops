@@ -42,11 +42,8 @@ function pid_f_exists()
 function stop_proc()
 {
 	# Check that script is running as root user and that pid file exists
-	if [ "$EUID" -eq 0 ] && [ -f $pid_f ]; then
+	if [ "$EUID" -eq 0 ]; then
 		pid="$(cat $pid_f)"
-		if [ -z "$pid" ]; then
-			return 7
-		fi
 		kill -15 "$pid"
 		rm $pid_f
 		echo "manage_my_process stopped"

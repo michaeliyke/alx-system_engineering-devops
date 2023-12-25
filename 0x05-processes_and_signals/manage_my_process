@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Indefinitley writes 'I am alive!' to tmp/my_process
 
+STARTED=0
 # The pid file
 pid_f="/var/run/my_process.pid"
 
@@ -11,14 +12,13 @@ function create_pid_f()
 	# status: {started|restarted}
 	status="$2"
 	touch "$pid_f"
-	if [ -f "$pid_f" ]; then
-		echo "$proc_id" | sudo tee "$pid_f" > /dev/null 2>&1
-		echo "manage_my_process $status"
-	fi
+	# echo "$proc_id" | sudo tee "$pid_f" > /dev/null 2>&1
+	echo "$proc_id" | sudo tee "$pid_f" > /dev/null
+	echo "manage_my_process $status"
 }
 
 # Quit if process is already running
-if [ -f "$pid_f" ]; then exit 0; fi
+# if [ -f "$pid_f" ]; then exit 0; fi
 
 # Create the log file if missing
 if [ ! -f tmp/my_process ]; then
@@ -28,12 +28,13 @@ fi
 
 # The logger machine
 while true; do
-	if [ -f "$pid_f" ]; then # does the pid file exist?
+	if (( $STARTED == 1 )); then # No Infinity infinity?
 		echo "I am alive!" >> tmp/my_process
 		sleep 2
 	else
 	# status: {started|restarted}
-	status="$1"
+		status="$1"
+		STARTED=1
 		create_pid_f $$ "$status" # create the pid file only once
 	fi
 done
