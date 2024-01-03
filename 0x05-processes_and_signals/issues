@@ -1,8 +1,12 @@
-Simply exit if process has already started
-Do not stop if not already running
-Do not restart if not already running
-
-Script starts manage_my_process process when started
-Script delete /var/run/my_process.pid file when stopped
-Script stops manage_my_process process when stopped
-Script displays manage_my_process restarted when restarted
+File is present
+First line contains #!/usr/bin/env bash
+Second line contains a comment describing what your Bash script does
+Your Bash script successfully passes shellcheck
+Script displays manage_my_process started when started
+Script displays manage_my_process stopped when stopped
+- Script displays manage_my_process restarted when restarted
+- Script displays Usage: manage_my_process {start|stop|restart}when nothing is passed or something different than start, stop or restart
+- Script creates /var/run/my_process.pid file when started
+- Script starts manage_my_process process when started
+- Script delete /var/run/my_process.pid file when stopped
+- Script stops manage_my_process process when stopped
