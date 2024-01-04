@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+clear
+# Loop through the bash array of lines and execute 100-textme.rb on each
+# Just for fun!
+line0=(
+"Feb  1 11:00:00 [from:+14169955502] [to:+16474951758] [flags:-1:0:-1:0:-1]"
+"Feb  1 11:00:00 [from:+17272713208] [to:+19172319348] [flags:-1:0:-1:0:-1]"
+"Feb  1 11:00:00 [from:18572406905] [to:14022180266] [flags:-1:0:-1:-1:-1]"
+"Feb 1 11:00:00 [from:Google] [to:+16474951758] [flags:-1:0:-1:0:-1]"
+)
+
+# Build a bash array from frile and execute each line using ./100-textme.rb
+lines=()
+while IFS= read -r l; do
+	lines+=("$l")
+done < txt.log
+
+# lines=()
+# while IFS= read -r l; do
+  # lines+=("$l")
+# done < txt.log
+
+echo "" > txt-results.log # Recreate each time
+for line in "${lines[@]}"
+	do
+		result=$(./100-textme.rb "$line")
+		{
+			echo "$result"
+		} >> txt-results.log
+		echo "$result"
+done
