@@ -112,6 +112,10 @@ class HBNBCommand(cmd.Cmd):
         if type(val) == str and val[0] != val[-1] != "\"":
             return None
         elif type(val) == str:
+            try:
+                eval(fr'{val}')  # check if it is valid
+            except Exception:
+                return None
             val = val.replace("\\\"", '"')
             val = val.replace("_", " ")
             val = val[1:-1]     # removing the quotes
