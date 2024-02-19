@@ -92,6 +92,32 @@ class HBNBCommand(cmd.Cmd):
             print('(hbnb) ', end='')
         return stop
 
+    def validate_val(val):
+        """ validates the value of a new parameter """
+        if not val:
+            return None
+        try:                    # try to make it a float
+            fval = float(val)
+            if val == str(fval):
+                val = fval      # if 3 didn't became 3.0
+        except Exception:
+            pass
+        try:                    # not a float, maybe int?
+            ival = int(val)
+            if val == str(ival):
+                val = ival
+        except Exception:
+            pass
+
+        if type(val) == str and val[0] != val[-1] != "\"":
+            return None
+        elif type(val) == str:
+            val = val.replace("\\\"", '"')
+            val = val.replace("_", " ")
+            val = val[1:-1]     # removing the quotes
+
+        return val
+
     def do_quit(self, command):
         """ Method to exit the HBNB console"""
         exit()
@@ -115,13 +141,26 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        if not args:
+        args = args.split(' ')  # args now is a list
+
+        _cls = args[0]
+        if not _cls:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif _cls not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        new_instance = HBNBCommand.classes[_cls]()
+
+        parameters = args[1:]   # args without the _cls
+        if parameters:
+            for p in parameters:
+                p = p.split('=')  # key=val became [key, val]
+                pkey = p[0]
+                pval = HBNBCommand.validate_val(p[1])
+                if pkey and pval:
+                    setattr(new_instance, pkey, pval)
+
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -319,6 +358,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
