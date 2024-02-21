@@ -14,11 +14,11 @@ class FileStorage:
             return FileStorage.__objects
         req = cls.__name__
         out = {}
-        for obj in FileStorage.__objects:
-            curr = obj.split('.')[0]
-            if req == curr:
-                print(obj)
-                out.update(obj)
+
+        for key in FileStorage.__objects:
+            curr = key.split('.')[0]
+            if curr == req:
+                out[key] = FileStorage.__objects[key]
         return out
 
     def new(self, obj):
@@ -54,18 +54,16 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
 
     def delete(self, obj=None):
         """ deletes obj from __objects if it’s inside - if obj is equal to None
         the method should not do anything """
-        if obj:
-            req = obj.id
-            all = self.all()
-            out = {}
-            for item in all:
-                print(item)
-
-            return out
+        if (obj):
+            obj = obj.to_dict()['__class__'] + '.' + obj.id
+            for fobj in FileStorage.__objects:
+                if obj == fobj:
+                    del FileStorage.__objects[obj]
+                    break

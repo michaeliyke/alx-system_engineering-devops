@@ -162,8 +162,8 @@ class HBNBCommand(cmd.Cmd):
                     p = p.split('=', 1)  # key=val became [key, val]
                     pkey = p[0]
                     pval = HBNBCommand.validate_val(p[1])
-                if pkey and pval:
-                    setattr(new_instance, pkey, pval)
+                    if pkey and pval:
+                        setattr(new_instance, pkey, pval)
 
         print(new_instance.id)
         storage.save()
