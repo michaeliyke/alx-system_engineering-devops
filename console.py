@@ -147,25 +147,24 @@ class HBNBCommand(cmd.Cmd):
         """ Create an object of any class"""
         args = args.split(' ')  # args now is a list
 
-        _cls = args[0]
-        if not _cls:
+        if len(args) == 0:
             print("** class name missing **")
             return
-        elif _cls not in HBNBCommand.classes:
+        elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[_cls]()
+        new_instance = HBNBCommand.classes[args[0]]()
 
         parameters = args[1:]   # args without the _cls
         if parameters:
             for p in parameters:
-                p = p.split('=')  # key=val became [key, val]
-                pkey = p[0]
-                pval = HBNBCommand.validate_val(p[1])
+                if '=' in p:
+                    p = p.split('=', 1)  # key=val became [key, val]
+                    pkey = p[0]
+                    pval = HBNBCommand.validate_val(p[1])
                 if pkey and pval:
                     setattr(new_instance, pkey, pval)
 
-        storage.save()
         print(new_instance.id)
         storage.save()
 
