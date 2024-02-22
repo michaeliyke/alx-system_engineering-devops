@@ -32,8 +32,9 @@ class DBStorage:
         """Retrieve all objects depending of the class name"""
         from models.city import City
         from models.state import State
+        from models.user import User
 
-        models = [State, City]  # all models
+        models = [State, City, User]  # all models
         cls_model = None  # temp var for cls's real model
         # If cls argument is given, query that only else query all of them
         if cls:
