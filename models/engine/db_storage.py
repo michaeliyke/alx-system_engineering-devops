@@ -34,8 +34,9 @@ class DBStorage:
         from models.state import State
         from models.user import User
         from models.review import Review
+        from models.place import Place
 
-        models = [State, City, User, Review]  # all models
+        models = [State, City, User, Review, Place]  # all models
         cls_model = None  # temp var for cls's real model
         # If cls argument is given, query that only else query all of them
         if cls:
