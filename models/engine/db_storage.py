@@ -1,5 +1,5 @@
 """This module defines a class to manage db storage for hbnb clone"""
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, MetaData, select
 import sqlalchemy.orm as orm
 import os
 
@@ -33,10 +33,34 @@ class DBStorage:
         from models.city import City
         from models.state import State
 
+        models = [State, City]  # all models
+        cls_model = None  # temp var for cls's real model
+        # If cls argument is given, query that only else query all of them
         if cls:
-            return self.__session.query(cls)
+            for model in models:
+                if model.__name__ == cls:
+                    cls_model = model
+                    break
+                if cls_model:
+                    models = [cls_model]
+        out = {}  # The dictionary to be returned
+        results = []  # The results to be compiled from db queries
+
+        for m in models:
+            results += self.__session.query(m).all()
+
+        for inst in results:
+            obj = inst.to_dict()
+            obj["created_at"] = repr(inst.created_at)
+            obj["updated_at"] = repr(inst.updated_at)
+            key = inst.__class__.__name__
+            val = f"[{key}] ({inst.id}) "
+            if "__class__" in obj:
+                del obj["__class__"]
+            val += str(obj)
+            out[key+"."+inst.id] = val
         # User, State, City, Amenity, Place and Review
-        return [self.__session.query(x) for x in [City, State]]
+        return out
 
     def new(self, obj):
         """add the object to the current database session"""
