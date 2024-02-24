@@ -66,11 +66,17 @@ apt-get install -y puppet
 
 You do not need to attempt to upgrade versions. This project is simply a set of tasks to familiarize you with the basic level syntax which is virtually identical in newer versions of Puppet.
 
+#### Install `puppet-lint`
+
+```terminal
+gem install puppet-lint
+```
+
 ## Files
 
-- 0-simple_web_stack
-- 1-distributed_web_infrastructure
-- 2-secured_and_monitored_web_infrastructure
+- 0-create_a_file.pp
+- 1-install_a_package.pp
+- 2-execute_a_command.pp
 
 > Each file contains the solution to a task in the project.
 
