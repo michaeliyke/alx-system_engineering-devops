@@ -34,41 +34,28 @@ Version control tools, such as Git, can be used to keep track of changes made to
 
 Configuration management makes it trivial to replicate environments with the exact same software and configurations. This enables you to effectively build a multistage ecosystem, with production, development, and testing servers. You can even use local virtual machines for development, built with the same provisioning scripts. This practice will minimize problems caused by environment discrepancies that frequently occur when applications are deployed to production or shared between co-workers with different machine setups (different operating system, software versions and/or configurations).
 
-### Monitoring
-
-Just as the heart monitor in a hospital that is making sure that a patient’s heart is beating and at the right beat, software monitoring will watch computer metrics, record them, and emit an alert if something is unusual or that could make the computer not work properly happens.
-
-`You cannot fix or improve what you cannot measure` is a famous saying in the tech industry. In the age of the data-ism, monitoring how our software systems are doing is an important thing.
-
-Web stack monitoring can be broken down into 2 categories:
-
-- Application monitoring: getting data about your running software and making sure it is behaving as expected
-- Server monitoring: getting data about your virtual or physical server and making sure they are not overloaded (could be CPU, memory, disk or network overload)
-
 ### I learnt about
 
-How to draw a diagram covering the web stack built with the sysadmin/devops track projects
-How to explain what each component is doing
-How to explain system redundancy
-All the mentioned acronyms: LAMP, SPOF, QPS
+- How to setup Puppet and puppet-linter
+- Basics of Puppet usage
 
 ## Requirements
 
 ### General
 
-- A README.md file, at the root of the folder of the project, is mandatory
-- For each task, once you are done whiteboarding (on a whiteboard, piece of paper or software or your choice), take a picture/screenshot of your diagram
-- This project will be manually reviewed:
-- As each task is completed, the name of that task will turn green
-- Upload a screenshot, showing that you completed the required levels, to any image hosting service (I personally use imgur but feel free to use anything you want).
-- For the following tasks, insert the link from of your screenshot into the answer file
-- After pushing your answer file to GitHub, insert the GitHub file link into the URL box
-- You will also have to whiteboard each task in front of a mentor, staff or student - no computer or notes will be allowed during the whiteboarding session
-- Focus on what you are being asked:
-- Cover what the requirements mention, we will explore details in a later project
-- Keep in mind that you will have 30 minutes to perform the exercise, you will get points for what is asked in requirements
-- Similarly in a job interview, you should answer what the interviewer asked for, be careful about being too verbose - always ask the interviewer if going into details is necessary - speaking too much can play against you
-- In this project, again, avoid going in details if not asked
+- All your files will be interpreted on Ubuntu 20.04 LTS
+- All your files should end with a new line
+- A `README.md` file at the root of the folder of the project is mandatory
+- Your Puppet manifests must pass `puppet-lint` version 2.1.1 without any errors
+- Your Puppet manifests must run without error
+- Your Puppet manifests first line must be a comment explaining what the Puppet manifest is about
+- Your Puppet manifests files must end with the extension `.pp`
+
+### Note on Versioning
+
+Your Ubuntu 20.04 VM should have Puppet 5.5 preinstalled.
+
+#### Install `puppet`
 
 ## Files
 
