@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Following commands reset the ssh login sessions
+# and enables you to re-authenticate
+eval "$(ssh-agent -s)"
+
+ssh-add -D
