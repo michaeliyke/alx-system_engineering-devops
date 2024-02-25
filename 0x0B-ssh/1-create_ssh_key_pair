@@ -1,1 +1,6 @@
 #!/usr/bin/env bash
+# creates an RSA key pair with passphras unattended
+# ssh-keygen -b 4096 -t rsa -N "" -f $file_name - No passphrase version
+file_name=school
+ssh-keygen -b 4096 -t rsa -N betty -f $file_name
+chmod 600 $file_name
