@@ -1,1 +1,6 @@
-#!/usr/bin/env bash
+Host *
+	PasswordAuthentication no
+Host alx_ssh_remote
+	HostName 54.208.125.239
+  IdentityFile ~/.ssh/school
+  User ubuntu
