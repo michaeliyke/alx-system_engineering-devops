@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Copies a file to a remote server using scp and an ssh key
-file_path=$1
-ip_addr=$2
-username=$3
-ssh_key_path=$4
-scp "$file_path" "$username@$ip_addr:/home/" -i "$ssh_key_path"
+src=$1
+ip=$2
+uname=$3
+key=$4
+scp -o StrictHostKeyChecking=no -i "$key" "$src" "$uname@$ip:/home/$uname/"
