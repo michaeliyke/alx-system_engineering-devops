@@ -1,16 +1,16 @@
 # Using Puppet to create a file and ensure it has a specific content
 include stdlib
 
-file_line { '/etc/ssh/ssh_config':
-    line               => '    IdentityFile ~/.ssh/school',
-    match              => '^[#]+[\s]*(?!)IdentityFile[\s]+~/.ssh/id_rsa$',
-    replace            => true,
-    append_on_no_match => true,
-}
+$contents = @(EOT)
+Host *
+	PasswordAuthentication no
+Host alx_ssh_remote
+  HostName 54.208.125.239
+  IdentityFile ~/.ssh/school
+  User ubuntu
+EOT
 
-file_line { '/etc/ssh/ssh_config':
-    line               => '    PassordAuthentication no',
-    match              => '^[#]+[\s]*(?!)PassordAuthentication[\s]+(yes|no)$',
-    replace            => true,
-    append_on_no_match => true,
+file { '/etc/ssh/ssh_config':
+    ensure  => file,
+    content => $contents,
 }
