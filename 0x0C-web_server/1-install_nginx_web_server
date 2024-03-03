@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 # Install nginx inserver and change to the the nginx root
+# Script to be executed with sudo privileges
 apt-get update
 apt-get install nginx -y
-ROOT=/var/www
 
-# Over-write default contents with "Hellow world!"
+# Create the default content: "Hellow world!"
+ROOT=/var/www
+mkdir -p $ROOT/html
 helloworld="<html> <body> Hello World! </body> </html>"
-echo $helloworld > ~/temp.html
-sudo mv ~/temp.html $ROOT/html/index.nginx-debian.html
+echo $helloworld | tee $ROOT/html/index.html > /dev/null
+
+service nginx restart
+curl 0.0.0.0:80
