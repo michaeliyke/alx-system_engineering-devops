@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Install nginx inserver and change to the the nginx root
+apt-get update
+apt-get install nginx -y
+cd /var/www
+
+# Over-write default contents with "Hellow world!"
+helloworld="<html> <body> Hello World! </body> </html>"
+echo $helloworld > ~/temp.html
+sudo mv ~/temp.html html/index.nginx-debian.html

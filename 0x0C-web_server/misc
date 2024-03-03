@@ -1,0 +1,53 @@
+
+mkdir -p example.com/html test.com/html
+sudo chown -R $USER:$USER /var/www/example.com/html
+sudo chown -R $USER:$USER /var/www/test.com/html
+sudo chmod -R 755 /var/www
+
+cp html/index.nginx-debian.html example.com/html/index.html
+cp html/index.nginx-debian.html test.com/html/index.html
+# sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com
+contents=$(cat <<END
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/example.com/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name example.com www.example.com;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+END
+)
+
+# Use the contents above to create the example.com block files
+sudo echo "$contents" > tmp
+sudo cp tmp /etc/nginx/sites-available/example.com
+
+# Modify tmp for placement in test.com
+sed -i 's/example.com/test.com/g' tmp
+# copy the contents of tmp to test.com
+sudo cp tmp /etc/nginx/sites-available/test.com
+
+# Make link files of the block files in the site-availble folder inside site-enabled
+sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/test.com /etc/nginx/sites-enabled/
+
+# make backup of /etc/nginx/nginx.conf before modifications
+sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+# set  server_names_hash_bucket_size 64;
+sudo sed -i '/server_names_hash_bucket_size/c\        server_names_hash_bucket_size 64;'\
+ /etc/nginx/nginx.conf
+# sudo nginx -t
+# test the installation
+sudo systemctl reload nginx
+# ufw allow "Nginx HTTP" # uncomplicated firewall allow unencripted HTTP
+# sudo cp /etc/hosts tmp
+# 127.0.0.1 localhost
+# 197.149.89.18 example.com www.example.com
+# sudo sh -c 'echo 197.149.89.18 test.com www.test.com >> /etc/hosts'
+
