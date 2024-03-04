@@ -40,7 +40,7 @@ echo "$index" | tee "$ROOT/html/index.html" > /dev/null
 # 404 page
 echo "$notfound_page" | tee "$notfound" > /dev/null
 
-sudo echo "$contents" | tee "$default" > /dev/null
+echo "$contents" | tee "$default" > /dev/null
 # nginx -t
 service nginx restart # or nginx -s reload for uninterrupted silent reload of config
 
