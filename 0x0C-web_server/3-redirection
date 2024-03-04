@@ -8,7 +8,7 @@ apt-get install nginx -y
 ROOT=/var/www
 mkdir -p $ROOT/html
 helloworld="<html> <body> Hello World! </body> </html>"
-echo $helloworld | tee $ROOT/html/index.html > /dev/null
+echo "$helloworld" | tee "$ROOT/html/index.html" > /dev/null
 
 service nginx restart
 # curl 0.0.0.0:80
