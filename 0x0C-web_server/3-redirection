@@ -4,37 +4,43 @@
 apt-get update
 apt-get install nginx -y
 
-# Create the default content: "Hellow world!"
 ROOT=/var/www
-mkdir -p $ROOT/html
-helloworld="<html> <body> Hello World! </body> </html>"
-echo "$helloworld" | tee "$ROOT/html/index.html" > /dev/null
+index="<html> <body> Hello World! </body> </html>"
+notfound_page="<html> <body>Ceci n'est pas une page</body> </html>"
+notfound=/usr/share/nginx/html/notfound.html
+default=/etc/nginx/sites-enabled/default
 
-service nginx restart
-# curl 0.0.0.0:80
-
-# --------------Redirect--------------------
-sudo mkdir -p /var/www/site.url/nginx
 # Replace the whole contents of "/etc/nginx/sites-enabled/default" with below
-contents=$(cat <<"END"
+contents=$(cat <<END
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 	root /var/www/html;
 	index index.html index.htm index.nginx-debian.html;
 	server_name _;
-	location / {
-		try_files $uri $uri/ =404;
-	}
-	# Add Redirects HERE
+
 	location /redirect_me {
 		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+	}
+
+	error_page 404 /notfound.html;
+	location = /notfound.html {
+		root /usr/share/nginx/html; # Default but just being explicit
+		internal;
 	}
 }
 
 END
 )
 
-echo "$contents" | tee /etc/nginx/sites-enabled/default > /dev/null
+mkdir -p $ROOT/html
+mkdir -p /usr/share/nginx/html
+
+echo "$index" | tee "$ROOT/html/index.html" > /dev/null
+# 404 page
+echo "$notfound_page" | tee "$notfound" > /dev/null
+
+sudo echo "$contents" | tee "$default" > /dev/null
 # nginx -t
-service nginx restart
+service nginx restart # or nginx -s reload for uninterrupted silent reload of config
+
