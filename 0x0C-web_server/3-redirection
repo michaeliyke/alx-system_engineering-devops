@@ -35,6 +35,6 @@ server {
 END
 )
 
-sudo echo "$contents" | tee /etc/nginx/sites-enabled/default > /dev/null
+echo "$contents" | tee /etc/nginx/sites-enabled/default > /dev/null
 # nginx -t
 service nginx restart
