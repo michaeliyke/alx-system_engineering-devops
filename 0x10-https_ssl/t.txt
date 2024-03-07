@@ -1,0 +1,13 @@
+www.holberton.online.	300	IN	A	54.210.47.110
+lb-01.holberton.online.	300	IN	A	54.210.47.110
+web-01.holberton.online. 300	IN	A	34.198.248.145
+web-02.holberton.online. 300	IN	A	54.89.38.100
+
+./0-world_wide_web holberton.online
+The subdomain www is a A record and points to 54.210.47.110
+The subdomain lb-01 is a A record and points to 54.210.47.110
+The subdomain web-01 is a A record and points to 34.198.248.145
+The subdomain web-02 is a A record and points to 54.89.38.100
+
+./0-world_wide_web holberton.online web-02
+The subdomain web-02 is a A record and points to 54.89.38.100
