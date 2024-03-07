@@ -38,8 +38,13 @@ defaults
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
 
-frontend https
+frontend http
 	bind *:80
+	mode http
+	option forwardfor
+	redirect scheme https code 301 if !{ ssl_fc }
+
+frontend https
 	bind *:443 ssl crt /etc/letsencrypt/live/anexe.tech/merged.pem alpn h2,http/1.1
 	# bind *:443 ssl crt /my_cert/haproxy.pem alpn h2,http/1.1
 	timeout client 40s
