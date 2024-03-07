@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Sets up a new ubuntu machine for load balancing using Haproxy
+# and letscenc
+
+# -----------------LONG STRING STARTS-----------------
+config=$(cat <<EOF
+frontend http80
+	bind *:80
+	default_backend allservers
+	timeout client 40s
+
+backend allservers
+	server web01 54.237.104.249:80
+	server web02 54.164.48.172:80
+	balance roundrobin
+	timeout connect 10s
+	timeout server 100s
+	mode http
+EOF
+)
+# ------------------LONG STRING ENDS------------------
+apt-get update
+apt-get install haproxy -y
+# Keep a backup of original conf
+if [ ! -f "/etc/haproxy/haproxy_bak.cfg" ]; then
+	cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy_bak.cfg
+fi
+printf '\n%s\n' "$config" | tee -a /etc/haproxy/haproxy.cfg > /dev/null
+# haproxy -f /etc/haproxy/haproxy-user.cfg - testing
+
+service haproxy restart
