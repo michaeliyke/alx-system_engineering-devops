@@ -23,15 +23,15 @@ server {
 
 	rewrite ^/redirect_me/?$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
 
+	location /hbnb_static {
+		alias /data/web_static/current;
+		index index.html 0-index.html;
+	}
+
 	error_page 404 /notfound.html;
 	location = /notfound.html {
 		root /usr/share/nginx/html; # Default but just being explicit
 		internal;
-	}
-
-	location /hbnb_static {
-		alias /data/web-static/current;
-		index index.html 0-index.html
 	}
 }
 
