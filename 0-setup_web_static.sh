@@ -40,20 +40,20 @@ END
 
 
 # "Create vital folders if not exists"
-[ -d /data/web_static/releases/test/ ] || mkdir -p /data/web_static/releases/test/
-[ -d /data/web_static/shared/ ] || mkdir /data/web_static/shared/
-echo "It works!" > /data/web_static/releases/test/index.html
+# [ -d /data/web_static/releases/test/ ] || mkdir -p /data/web_static/releases/test/
+# [ -d /data/web_static/shared/ ] || mkdir /data/web_static/shared/
+# echo "It works!" > /data/web_static/releases/test/index.html
 
 # "Important symbolic links"
-[ -e /data/web_static/current ] && rm /data/web_static/current
-ln -s /data/web_static/releases/test/ /data/web_static/current
-chown -R ubuntu:ubuntu /data/
+# [ -e /data/web_static/current ] && rm /data/web_static/current
+# ln -s /data/web_static/releases/test/ /data/web_static/current
+# chown -R ubuntu:ubuntu /data/
 
-mkdir -p /var/www/html
-mkdir -p /usr/share/nginx/html
-echo "$index" | tee /var/www/html/index.html > /dev/null
-echo "$notfound_page" | tee "$notfound" > /dev/null
+# mkdir -p /var/www/html
+# mkdir -p /usr/share/nginx/html
+# echo "$index" | tee /var/www/html/index.html > /dev/null
+# echo "$notfound_page" | tee "$notfound" > /dev/null
 
-echo "$contents" | tee "$default" > /dev/null
+# echo "$contents" | tee "$default" > /dev/null
 # nginx -t
-service nginx restart # or nginx -s reload for uninterrupted silent reload of config
+# service nginx restart # or nginx -s reload for uninterrupted silent reload of config
