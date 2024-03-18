@@ -24,6 +24,22 @@
 
 - 0-give_me_a_page
 
+```terminal
+#!/usr/bin/env bash
+# The steps required to fix the Apache server
+image="holbertonschool/265-0"
+# Download the image
+sudo docker pull "$image"
+# Run the container detatched, and get its id
+container_id=$(sudo docker run -d -it -p 8080:80 "$image")
+# List the existing all running containers by their id
+docker ps -q
+# Statrt the apache2 service in the container and suppress its warnings
+docker exec --privileged "$container_id" sudo service apache2 start > /dev/null 2>&1
+# check that the apache2 service is running
+curl 0.0.0.0:8080
+```
+
 > Each file contains the solution to a task in the project.
 
 <!-- markdownlint-disable-next-line -->
