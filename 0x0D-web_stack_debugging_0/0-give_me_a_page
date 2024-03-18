@@ -6,6 +6,8 @@ sudo docker pull "$image"
 # Run the container detatched, and get its id
 container_id=$(sudo docker run -d -it -p 8080:80 "$image")
 # List the existing all running containers by their id
+# Also  by using below to get latest container id
+# id=$(docker ps -alq)
 docker ps -q
 # Statrt the apache2 service in the container and suppress its warnings
 docker exec --privileged "$container_id" sudo service apache2 start > /dev/null 2>&1

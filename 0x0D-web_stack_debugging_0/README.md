@@ -32,6 +32,8 @@ image="holbertonschool/265-0"
 sudo docker pull "$image"
 # Run the container detatched, and get its id
 container_id=$(sudo docker run -d -it -p 8080:80 "$image")
+# Also  by using below to get latest container id
+# id=$(docker ps -alq)
 # List the existing all running containers by their id
 docker ps -q
 # Statrt the apache2 service in the container and suppress its warnings
