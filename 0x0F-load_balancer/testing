@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Upload import test files and then execute some tests
+server="d30ba7ab5e5d@d30ba7ab5e5d.2518abca.alx-cod.online"
+
+reg=/home/michaeliyke/bin/configure_regulars
+scp "$reg" "$server:"
+scp "2-puppet_custom_http_response_header.pp" "$server:"
+scp "update_nginx_config.sh" "$server:"
+echo
+echo
+ssh "$server" 'source configure_regulars'
+ssh "$server" 'sudo puppet apply ./2-puppet_custom_http_response_header.pp'
+echo
+echo
+echo "Testing the server"
+ssh "$server" 'curl 0'
+ssh "$server" 'curl 0/redirect_me'
+ssh "$server" 'curl 0/yahoo'
+echo
+echo
+ssh "$server" 'curl 0 -I'
+
