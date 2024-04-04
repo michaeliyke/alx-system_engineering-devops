@@ -28,7 +28,7 @@ def do_deploy(archive_path):
     # delete archive from /tmp/
     run("rm /tmp/{}".format(path.name))
     # recreate the symlink /data/web_static/current and point to archive_name
-    run("rm /data/web_static/current")
-    run("ln -s /data/web_static/releases/{}  /data/web_static/current"
-        .format(path.stem))
+    run("if [ -d /data/web_static/current ]; then sudo rm /data/web_static/current;fi")
+    run("if [ -d /data/web_static/current ]; then ln -s /data/web_static/releases/{}\
+        /data/web_static/current; fi".format(path.stem))
     return True
