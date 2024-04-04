@@ -17,7 +17,7 @@ def do_deploy(archive_path):
     symlink = "/data/web_static/current"
     try:
         # upload to the temp dir of each server
-        put(archive_path, "/tmp")
+        put(archive_path, f"/tmp/{path.name}")
         # uncompress to /data/web_static/releases/archive_name
         run(f"mkdir -p {release}")
         run(f"rm -rf {release}/*")
