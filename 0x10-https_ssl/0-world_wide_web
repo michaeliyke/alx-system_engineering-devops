@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Querying
+
+# Query and get the ip address of n A record
+function get_result()
+{
+	result=$(dig "$1" | grep -A1 'ANSWER SECTION:' | awk '!/^;;/{print $5}')
+	echo "$result"
+}
+
+
+if [ $# -eq 1 ]; then
+	www=$(get_result "www.$1")
+	if [ -n "$www" ]; then
+		printf "The subdomain www is a A record and points to %s\n" "$www";
+	fi
+
+	lb01=$(get_result "lb-01.$1")
+	if [ -n "$lb01" ]; then
+		printf "The subdomain lb-01 is a A record and points to %s\n" "$lb01";
+	fi
+
+	web01=$(get_result "web-01.$1")
+	if [ -n "$web01" ]; then
+		printf "The subdomain web-01 is a A record and points to %s\n" "$web01";
+	fi
+
+	web02=$(get_result "web-02.$1")
+	if [ -n "$web02" ]; then
+		printf "The subdomain web-02 is a A record and points to %s\n" "$web02";
+	fi
+fi
+
+if [ $# -gt 1 ]; then
+	printf "The subdomain $2 is a A record and points to %s\n" "$(get_result "$2.$1")"
+fi
