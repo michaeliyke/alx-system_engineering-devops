@@ -31,6 +31,3 @@ def do_clean(number=0):
         name = "./versions/web_static_{}.tgz".format(date_str)
         print("Deleting: {}".format(name))
         Path(name).unlink()
-
-
-__all__ = ["do_clean", "deploy", "do_deploy", "do_pack"]

@@ -15,6 +15,3 @@ def deploy():
         return False
 
     return do_deploy(archive_path)
-
-
-__all__ = ["deploy", "do_deploy", "do_pack"]
