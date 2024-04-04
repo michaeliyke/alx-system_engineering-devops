@@ -12,15 +12,15 @@ def do_deploy(archive_path):
     path = Path(archive_path)
     # env.hosts = ["18.234.145.122"]
     # Local file archive_path doesn't exist, return false
-    if not path.is_file():
+    if not path.exists():
         return False
 
     # upload to the temp dir of each server
-    put(archive_path, "/tmp/")
+    put(archive_path, "/tmp")
     # uncompress to /data/web_static/releases/archive_name
     run("mkdir -p /data/web_static/releases/{}".format(path.stem))
     run("rm -rf /data/web_static/releases/{}/*".format(path.stem))
-    run("tar -xzvf /tmp/{}  -C /data/web_static/releases/{}"
+    run("tar -xzf /tmp/{}  -C /data/web_static/releases/{}"
         .format(path.name, path.stem))
     run("mv /data/web_static/releases/{}/web_static/*\
             /data/web_static/releases/{}".format(path.stem, path.stem))
