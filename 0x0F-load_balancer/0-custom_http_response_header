@@ -43,3 +43,4 @@ echo "$contents" | tee "$default" > /dev/null
 # nginx -t
 service nginx restart # or nginx -s reload for uninterrupted silent reload of config
 
+# example of the scp command to copy files between local and remote server
