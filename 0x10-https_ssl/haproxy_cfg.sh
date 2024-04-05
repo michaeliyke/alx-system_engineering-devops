@@ -51,8 +51,8 @@ frontend https
 	default_backend allservers
 
 backend allservers
-	server web01 54.237.104.249:80
-	server web02 54.164.48.172:80
+	server web01 18.204.16.105:80
+	server web02 18.234.145.122:80
 	timeout connect 10s
 	timeout server 100s
 	balance roundrobin
