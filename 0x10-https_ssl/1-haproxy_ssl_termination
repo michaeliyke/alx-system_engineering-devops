@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # SSL termination implementation
-apt-get update
-[ -x /usr/sbin/haproxy ] || apt-get install haproxy -y
+
+[ -x /usr/sbin/haproxy ] || apt-get update && apt-get install haproxy -y
 [ -x /usr/bin/certbot ] || apt-get install certbot -y
 
 source ./haproxy_cfg.sh # This sets $HA_CONF variable
@@ -10,8 +10,21 @@ service haproxy stop
 pub=/etc/letsencrypt/live/anexe.tech/fullchain.pem
 priv=/etc/letsencrypt/live/anexe.tech/privkey.pem
 final_cert=/etc/letsencrypt/live/anexe.tech/merged.pem
-[ -f "$final_cert" ] || certbot certonly --standalone -n --agree-tos \
--m aneze.dev@gmail.com -d anexe.tech -d anexe.ddns.net
+
+# Incase I want to renew the certificate
+if [ "$1" = "renew" ]; then
+  certbot renew
+  cat "$pub" "$priv" | tee "$final_cert" > /dev/null
+  exit 0
+fi
+
+# Incase I wat to recreate the certificate
+if [ "$1" = "recreate" ] && [ -f "$pub" ] ; then
+  certbot delete --cert-name anexe.tech
+fi
+
+[ -f "$pub" ] && [ -f "$priv" ] || certbot certonly --standalone -n --agree-tos \
+-m aneze.dev@gmail.com -d anexe.tech -d www.anexe.tech
 
 cat "$pub" "$priv" | tee "$final_cert" > /dev/null
 
