@@ -10,29 +10,24 @@ env.hosts = ["18.204.16.105", "18.234.145.122"]
 def do_deploy(archive_path):
     """Distributes an archive to your web servers"""
     path = Path(archive_path)
-    # env.hosts = ["18.234.145.122"]
-    # Local file archive_path doesn't exist, return false
+    release = "/data/web_static/releases/{}".format(path.stem)
+    latest = "/data/web_static/current"  # symlink to lastest release
     if not path.exists():
         return False
 
     # upload to the temp dir of each server
     try:
-        put(archive_path, "/tmp")
-        release = "/data/web_static/releases/{}".format(path.stem)
-        current = "/data/web_static/current"
-
+        put(archive_path, f"/tmp/{path.name}")
         # uncompress to /data/web_static/releases/archive_name
         run(f"mkdir -p {release}")
         run("sudo chown -R ubuntu:ubuntu /data/")
-        run(f"rm -rf {release}/*")
-        run(f"tar -xzf /tmp/{path.name}  -C {release}")
-        run(f"mv {release}/web_static/* {release}")
-        run(f"rmdir {release}/web_static")
-        # delete archive from /tmp/
-        run(f"rm -f /tmp/{path.name}")
-        # recreate the symlink /data/web_static/current and point to archive_name
-        run(f"rm -f {current}")
-        run(f"ln -s {release} {current}")
-    except:
+        # run(f"rm -rf {release}/*")
+        run(f"tar -xzf /tmp/{path.name}  -C {release} --strip-components=1")
+        # run(f"mv {release}/web_static/* {release}")
+        # run(f"rmdir {release}/web_static")
+        run(f"rm -f /tmp/{path.name}")  # delete archive from /tmp/
+        run(f"rm -rf {latest}")  # recreate the symlink current
+        run(f"ln -s {release} {latest}")
+    except Exception:
         return False
     return True
