@@ -2,7 +2,7 @@
 # install fabric
 
 # "Install Nginx"
-if ! command -v nginx > /dev/null; then
+if ! command -v nginx >& /dev/null; then # both stdout and stderr to /dev/null
 	sudo apt-get update
 	sudo apt-get install nginx -y
 fi
@@ -25,7 +25,7 @@ server {
 
 	location /hbnb_static {
 		alias /data/web_static/current;
-		index index.html 0-index.html;
+		index 0-index.html my_index.html;
 	}
 
 	error_page 404 /notfound.html;

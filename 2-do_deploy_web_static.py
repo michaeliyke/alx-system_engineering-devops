@@ -16,20 +16,23 @@ def do_deploy(archive_path):
         return False
 
     # upload to the temp dir of each server
-    put(archive_path, "/tmp")
-    release = "/data/web_static/releases/{}".format(path.stem)
-    current = "/data/web_static/current"
+    try:
+        put(archive_path, "/tmp")
+        release = "/data/web_static/releases/{}".format(path.stem)
+        current = "/data/web_static/current"
 
-    # uncompress to /data/web_static/releases/archive_name
-    run(f"sudo mkdir -p {release}")
-    run("sudo chown -R ubuntu:ubuntu /data/")
-    run(f"sudo rm -rf {release}/*")
-    run(f"sudo tar -xzf /tmp/{path.name}  -C {release}")
-    run(f"sudo mv {release}/web_static/* {release}")
-    run(f"sudo rmdir {release}/web_static")
-    # delete archive from /tmp/
-    run(f"sudo rm /tmp/{path.name}")
-    # recreate the symlink /data/web_static/current and point to archive_name
-    run(f"sudo rm -f {current}")
-    run(f"sudo ln -s {release} {current}")
+        # uncompress to /data/web_static/releases/archive_name
+        run(f"mkdir -p {release}")
+        run("chown -R ubuntu:ubuntu /data/")
+        run(f"rm -rf {release}/*")
+        run(f"tar -xzf /tmp/{path.name}  -C {release}")
+        run(f"mv {release}/web_static/* {release}")
+        run(f"rmdir {release}/web_static")
+        # delete archive from /tmp/
+        run(f"rm -f /tmp/{path.name}")
+        # recreate the symlink /data/web_static/current and point to archive_name
+        run(f"rm -f {current}")
+        run(f"ln -s {release} {current}")
+    except:
+        return False
     return True
