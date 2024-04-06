@@ -23,7 +23,7 @@ def do_deploy(archive_path):
 
         # uncompress to /data/web_static/releases/archive_name
         run(f"mkdir -p {release}")
-        run("chown -R ubuntu:ubuntu /data/")
+        run("sudo chown -R ubuntu:ubuntu /data/")
         run(f"rm -rf {release}/*")
         run(f"tar -xzf /tmp/{path.name}  -C {release}")
         run(f"mv {release}/web_static/* {release}")
