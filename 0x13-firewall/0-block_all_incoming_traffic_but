@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+if ! command -v ufw > /dev/null 2>&1;
+	then
+		apt update && apt install ufw -y
+	fi
+
+if ! systemctl is-enabled ufw > /dev/null 2>&1;
+	then
+	systemctl enable ufw
+	fi
+
+# Ensure ufw is in a disabled state
+ufw disable
+
+# Allow all out going
+ufw default allow outgoing
+
+# Deny all incoming
+ufw default deny incoming
+
+# Allow incoming ssh (22/tcp)
+ufw allow 22/tcp
+
+# Allow HTTPS
+ufw allow 443/tcp
+
+# Allow HTTP
+ufw allow 80/tcp
+
+# Enable ufw
+ufw enable
+
+# check status
+ufw status
