@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Configures port forwarding
+
+#!/usr/bin/env bash
 
 if ! command -v ufw > /dev/null 2>&1;
 	then
@@ -34,7 +37,7 @@ ufw allow from 54.88.115.160 to any port 80 proto tcp
 ufw enable
 
 # check status
-ufw status
+# ufw status
 
 
 # ufw status mnumbered
@@ -43,3 +46,5 @@ ufw status
 # Port 80 from anywhere is good
 # port 22 from only your internet connection to allow you test but should
 # blocked to others to limit attack surfce
+
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
