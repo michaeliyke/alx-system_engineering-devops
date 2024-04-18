@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Run the given command as another user
+cls
+# Check if the user name is provided
+USER=$1
+if [ -z "$USER" ]; then
+	echo "Please provide a username."
+	exit 1
+fi
+
+# Check if the user exists in the system
+if ! id "$USER" >& /dev/null; then
+	echo "User '$USER' does not exits."
+	exit 1
+fi
+
+# shift No need for shift anymore since we are using "${@:2}" and not "$@"
+
+if [ -z "$2" ]; then
+	echo "A command must be supplied"
+	exit 1
+fi
+
+# This will run any program as nother user supplied as $1
+# Arguments starting from $2 up are expected to be the to be run
+# as well as its arguments
+sudo -us "$USER" "${@:2}"
+exit 0

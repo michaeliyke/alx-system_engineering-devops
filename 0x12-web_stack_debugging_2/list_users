@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# List all the registered users on the machine including services
+cat /etc/passwd | cut -d: -f1
