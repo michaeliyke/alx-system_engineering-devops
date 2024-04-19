@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Run the nginx server as the nginx user not the root user
-sed -i 's/80/8080/g' /etc/nginx/sites-available/default
-sudo apt install lsof -y
-sed -i "1 i\user nginx;" /etc/nginx/nginx.conf # Replace the user to nginx
+sed -i 's/80/8080/g' /etc/nginx/sites-available/default | sudo apt install lsof -y
+sudo chown nginx: /etc/nginx/nginx.conf
+sudo chmod ug+r /etc/nginx/nginx.conf | sudo service nginx stop
 sudo kill "$(lsof -i:8080 -t)"
-service nginx restart
+sudo -u nginx nginx
