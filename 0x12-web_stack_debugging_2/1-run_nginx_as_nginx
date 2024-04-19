@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Run the nginx server as the nginx user not the root user
+conf=$(cat<< "EOF"
+server {
+	listen 8080 default_server;
+	listen [::]:8080 default_server ipv6only=on;
+
+	root /usr/share/nginx/html;
+	index index.html index.htm;
+	server_name localhost;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
+EOF
+)
+
+sudo apt update
+sudo apt install lsof -y
+
+# Over-write /etc/nginx/sites-enabled/default with the short conf above
+echo "$conf" > /etc/nginx/sites-enabled/default
+
+# Stop apache2 from listening on port 8080 and make nginx listen there.
+sudo kill "$(lsof -i:8080 -t)"
+
+# Change the ownership to nginx and the default group associated with nginx
+# as specified by the system.
+chown nginx: /etc/nginx/nginx.conf
+
+# add read permission to the file for the user owner and the group.
+chmod ug+r /etc/nginx/nginx.conf
+
+# Stop the nginx server first in case its running
+service nginx stop
+
+# Start the nginx server as the user nginx
+sudo -u nginx nginx
+exit 0
