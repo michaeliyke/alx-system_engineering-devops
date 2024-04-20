@@ -7,7 +7,7 @@ if ! command -v nginx >& /dev/null; then # both stdout and stderr to /dev/null
 	sudo apt-get install nginx -y
 fi
 
-index="<html> <body> Hello World! </body> </html>"
+index="<html> <body> Hello World! <br /> Holberton School </body> </html>"
 notfound_page="<html> <body>Ceci n'est pas une page</body> </html>"
 notfound=/usr/share/nginx/html/notfound.html
 default=/etc/nginx/sites-enabled/default
@@ -55,5 +55,5 @@ echo "$index" | tee /var/www/html/index.html > /dev/null
 echo "$notfound_page" | tee "$notfound" > /dev/null
 
 echo "$contents" | tee "$default" > /dev/null
-# nginx -t
+# nginx -
 service nginx restart # or nginx -s reload for uninterrupted silent reload of config
