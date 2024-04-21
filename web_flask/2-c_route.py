@@ -22,7 +22,9 @@ def hbnb():
 @app.route("/c/<text>")
 def isfun(text):
     """ To display a variable in the url"""
-    return f"C {escape(text)}"
+    if text:
+        text = escape(text.replace("_", " "))
+    return f"C {text}"
 
 
 if __name__ == "__main__":
