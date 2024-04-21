@@ -3,18 +3,19 @@
 from flask import Flask
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False  # Turn off strict slash checks
 
 
-@app.route("/", strict_slashes=False)
+@app.route("/")
 def index():
     """The hello world route"""
-    return "Hello HBNB!\n"
+    return "Hello HBNB!"
 
 
-@app.route("/hbnb", strict_slashes=False)
+@app.route("/hbnb")
 def hbnb():
     """ To display HBNB on the /hbnb route"""
-    return "HBNB!\n"
+    return "HBNB!"
 
 
 if __name__ == "__main__":
