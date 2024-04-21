@@ -6,9 +6,15 @@ app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def hello_world():
+def index():
     """The hello world route"""
     return "Hello HBNB!"
+
+
+@app.route("/hbnb", strict_slashes=False)
+def hbnb():
+    """ To display HBNB on the /hbnb route"""
+    return "HBNB!"
 
 
 if __name__ == "__main__":
