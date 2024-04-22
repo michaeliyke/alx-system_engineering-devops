@@ -28,6 +28,10 @@ class DBStorage:
             # Drop all tables in their dependencies order
             metadata.drop_all(self.__engine)
 
+    def close(self):
+        """method for deserializing the JSON file to objects"""
+        self.__session.remove()
+
     def all(self, cls=None):
         """Retrieve all objects depending of the class name"""
         from models.city import City
