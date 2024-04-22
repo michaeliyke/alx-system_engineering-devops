@@ -28,9 +28,9 @@ def display(data, user) -> None:
         print("\t " + task.get('title'))
 
 
-if len(sys.argv) < 2:
-    print("Usage: {} employee_id".format(sys.argv[0]))
-    sys.exit(1)
+# if len(sys.argv) < 2:
+#     print("Usage: {} employee_id".format(sys.argv[0]))
+#     sys.exit(1)
 
 if __name__ == "__main__":
     display(todos(sys.argv[1]), user(sys.argv[1]))
