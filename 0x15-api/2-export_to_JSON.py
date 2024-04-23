@@ -54,4 +54,5 @@ def export_json(tasks, user) -> None:
 
 if __name__ == "__main__":
     data = export_json(todos(sys.argv[1]), user(sys.argv[1]))
-    print(data)
+    with open(f"{sys.argv[1]}.json", "w") as file:
+        file.write(data)

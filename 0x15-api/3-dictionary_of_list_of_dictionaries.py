@@ -73,4 +73,5 @@ def export_json_users() -> None:
 
 if __name__ == "__main__":
     data = export_json_users()
-    print(data)
+    with (open("todo_all_employees.json", "w")) as file:
+        json.dump(data, file)
