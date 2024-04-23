@@ -57,7 +57,7 @@ def export_json_users() -> None:
     users = requests.get(f"https://jsonplaceholder.typicode.com/users")
 
     jsondata = {}
-    for user in users:
+    for user in users.json():
         jsondata[user.get("id")] = []
         url = "https://jsonplaceholder.typicode.com/users/{}/todos"
         data = requests.get(url.format(user.get("id"))).json()
