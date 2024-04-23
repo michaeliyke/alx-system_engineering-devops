@@ -56,19 +56,21 @@ def export_json_users() -> None:
     """Export employees tasks to json"""
     users = requests.get(f"https://jsonplaceholder.typicode.com/users")
 
-    jsondata = {}
+    data = {}
     for user in users.json():
-        jsondata[user.get("id")] = []
+        uid = user.get("id")
+        todos = []
         url = "https://jsonplaceholder.typicode.com/users/{}/todos"
-        data = requests.get(url.format(user.get("id"))).json()
-        for task in data:
+        tasks = requests.get(url.format(uid)).json()
+        for task in tasks:
             record = {}
             record["username"] = user.get("username")
             record["task"] = task.get("title")
             record["completed"] = "false" if task.get(
                 "completed") is False else "true"
-            jsondata[user.get("id")].append(record)
-    return jsondata
+            todos.append(record)
+        data[uid] = todos
+    return data
 
 
 if __name__ == "__main__":
