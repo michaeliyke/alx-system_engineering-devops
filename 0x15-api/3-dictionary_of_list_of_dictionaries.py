@@ -65,7 +65,8 @@ def export_json_users() -> None:
             record = {}
             record["username"] = user.get("username")
             record["task"] = task.get("title")
-            record["completed"] = task.get("completed")
+            record["completed"] = "false" if task.get(
+                "completed") is False else "true"
             jsondata[user.get("id")].append(record)
     return jsondata
 
