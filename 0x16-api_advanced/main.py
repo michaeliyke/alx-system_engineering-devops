@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-0-main
+0-main where I test the function number_of_subscribers and others
 """
 import sys
 

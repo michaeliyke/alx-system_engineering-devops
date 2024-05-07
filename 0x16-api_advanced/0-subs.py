@@ -5,8 +5,6 @@ import requests
 # client_id: 8s4s7i-Yzj0Mbb7edJlY0g
 # secrete: VtmWMpSbF4NUxukhxQf0Hji-GPnOvQ
 
-a, b, c = 1, 2, 3
-
 
 def number_of_subscribers(subreddit):
     """Returns the number of subscribers for a given subreddit"""
