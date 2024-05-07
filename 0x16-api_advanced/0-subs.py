@@ -5,10 +5,6 @@ import requests
 
 def number_of_subscribers(subreddit):
     """Returns the number of subscribers for a given subreddit"""
-    # client_id = '8s4s7i-Yzj0Mbb7edJlY0g'
-    # client_secret = 'VtmWMpSbF4NUxukhxQf0Hji-GPnOvQ'
-    # auth = requests.auth.HTTPBasicAuth(client_id, client_secret)
-
     url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
     headers = {'User-Agent': 'student-task: u/Aneze'}
     response = requests.get(url, headers=headers, allow_redirects=False)

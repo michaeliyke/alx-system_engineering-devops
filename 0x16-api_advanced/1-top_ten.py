@@ -2,10 +2,6 @@
 """Module for number_of_subscribers function: Reddit API"""
 import requests
 
-# client_id = '8s4s7i-Yzj0Mbb7edJlY0g'
-# client_secret = 'VtmWMpSbF4NUxukhxQf0Hji-GPnOvQ'
-# auth = requests.auth.HTTPBasicAuth(client_id, client_secret)
-
 headers = {'User-Agent': 'student-task: u/Aneze'}
 
 
