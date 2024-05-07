@@ -2,9 +2,6 @@
 """Module for number_of_subscribers function: Reddit API"""
 import requests
 
-# client_id: 8s4s7i-Yzj0Mbb7edJlY0g
-# secrete: VtmWMpSbF4NUxukhxQf0Hji-GPnOvQ
-
 
 def number_of_subscribers(subreddit):
     """Returns the number of subscribers for a given subreddit"""
@@ -17,4 +14,6 @@ def number_of_subscribers(subreddit):
     response = requests.get(url, headers=headers, allow_redirects=False)
     if response.status_code != 200:
         return 0
+    for key in response.json().get('data').keys():
+        print(key)
     return response.json().get('data').get('subscribers')
