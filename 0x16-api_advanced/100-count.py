@@ -50,7 +50,6 @@ def get_hits_count_desc(words: list, sentences: list) -> dict:
     """Get a dict of keyword counts"""
     counts = {word: 0 for word in words}  # Initialize counts to 0
     for word in words:
-        sentence: str
         for sentence in sentences:
             counts[words] += sentence.count(word)
 
@@ -84,8 +83,8 @@ def count_words(subreddit: str, word_list: str, titles=None):
     after = data.get('after')
 
     if after is None:
-        words: list = sorted(word_list.split())
-        sorted_hits: dict = get_hits_count_desc(words, titles)
+        words = sorted(word_list.split())
+        sorted_hits = get_hits_count_desc(words, titles)
         for key, val in sorted_hits.items():
             print(f"{key}: {val}")
         return titles
