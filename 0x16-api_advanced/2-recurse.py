@@ -35,9 +35,7 @@ def recurse(subreddit, hot_list=[]):
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
     response = requests.get(url, headers=headers, allow_redirects=False)
     if response.status_code != 200:
-        if len(hot_list) == 0:
-            print(None)
-        return
+        return None
     data = response.json().get('data')
     posts = data.get('children')
     for post in posts:
