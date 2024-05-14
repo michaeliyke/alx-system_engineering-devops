@@ -4,14 +4,33 @@
 
 # -----------------LONG STRING STARTS-----------------
 config=$(cat <<EOF
+global
+	log /dev/log	local0
+	log /dev/log	local1 notice
+	chroot /var/lib/haproxy
+	stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+	stats timeout 30s
+	user haproxy
+	group haproxy
+	daemon
+
+	# Default SSL material locations
+	ca-base /etc/ssl/certs
+	crt-base /etc/ssl/private
+
+	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+
 frontend http80
 	bind *:80
 	default_backend allservers
 	timeout client 40s
 
 backend allservers
-	server web01 18.204.16.105
-	server web02 18.234.145.122
+	server web01 54.167.197.163
+	server web02 52.91.120.251
 	balance roundrobin
 	timeout connect 10s
 	timeout server 100s
@@ -25,7 +44,7 @@ apt-get install haproxy -y
 if [ ! -f "/etc/haproxy/haproxy_bak.cfg" ]; then
 	cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy_bak.cfg
 fi
-printf '\n%s\n' "$config" | tee -a /etc/haproxy/haproxy.cfg > /dev/null
+printf '\n%s\n' "$config" | tee /etc/haproxy/haproxy.cfg > /dev/null
 # haproxy -f /etc/haproxy/haproxy-user.cfg - testing
 
 service haproxy restart

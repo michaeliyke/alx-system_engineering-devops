@@ -1,3 +1,6 @@
 a
 x
 *.*.swp
+
+__pycache__
+

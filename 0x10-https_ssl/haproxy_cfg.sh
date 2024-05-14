@@ -51,11 +51,13 @@ frontend https
 	default_backend allservers
 
 backend allservers
-	server web01 18.204.16.105:80
-	server web02 18.234.145.122:80
+	server web01 54.167.197.163
+	server web02 52.91.120.251
 	timeout connect 10s
 	timeout server 100s
 	balance roundrobin
 	mode http
 EOF
 )
+
+# TEST: sudo haproxy -c -f /etc/haproxy/haproxy.cfg

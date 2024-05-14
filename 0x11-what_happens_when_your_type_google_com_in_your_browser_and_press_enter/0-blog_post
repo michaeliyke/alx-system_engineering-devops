@@ -1,0 +1,23 @@
+What Happens When You Type Google.Com In Your Browser And Press Enter?
+
+Hi all. In this excercise, I am going to strive to go over what happens exactly when you type google.com and hit enter in your browser. I will not bore you with too much details but walk through the technical process behind the magic on a high level. You don't need to be technical understand this process as I am going to be breaking down every jargon we meet along the way.
+
+Usually when you type google.com in you browser and hit enter, you want to browser some information online using the google.com website. Typically, you would type google.com first,hit enter, and wait for the page to load. After the page loads, then you proceed to search for the information you had planned originally. However, our assignment on the first part which invloves loading the google.com website first.
+
+DNS Request
+Your browser performs a DNS query to get the IP address of the domain of google.com. This returns the IP address of one of the load balancers.
+
+LOAD BALANCERS
+These load balancers are merely middle servers helping to share the load of web requests as needed among the webservers to avoid over crowding of requests on a y single webserver. So the web browser typically communicate with the load balancers and the load balancers in turn communicate with the webservers.
+
+TCP/IP
+With the IP address, the browser establishes a TCP connection using the TCP/IP protocol. A network protocol is an established set of rules for formatting data for communication among network devices. TCP/IP consists of various protocols ranging from Datalink layer, transport layer, network layer, and application layer. These work together to enable internet connectivity for client/server communication. So in our example, the browser establishes a TCP connection with the load balancer and sends a HTTP request through that connection channel asking for the home page of google.com
+
+HTTPS/SSL
+Since plain HTTP message is merely in plain text readable to humans, HTTPS/SSL is the part that ensures that communication between the load balancer and the web browser is secure and encrypted. This is important because network packets can be intercepted and potentially altered in transit but if the contets are encrypted, the data would be gibberish to whoever intercepts it so it would be useless to them.
+
+Web server
+Web server is the part of this whole system that serves the website contents like images, videos, text, etc. Usually there is more than one of them to avoid the single point of failure problem and also share the workload of serving contents so that one server is not weighed down by much load. The main job of the web server is to generate and serve static contents of the website. It may interact with any available application servers and or databases if need be to generate the contents which then are forwarded to the client through the load balancer because the client has no direct access to it.
+
+Application server
+Application servers are typically at the level of you
