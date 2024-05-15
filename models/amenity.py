@@ -9,3 +9,4 @@ class Amenity(BaseModel, Base):
     __tablename__ = "amenities"
     name = Column(String(129), nullable=False)
     place_amenities = orm.relationship("Place", )
+

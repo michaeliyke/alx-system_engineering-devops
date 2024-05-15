@@ -13,3 +13,4 @@ def do_pack():
     res = local("tar -cvzf versions/{} web_static".format(name), capture=True)
     if res.return_code == 0:
         return "versions/{}".format(name)
+

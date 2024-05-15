@@ -10,3 +10,4 @@ else:
     storage = FileStorage()  # We use file storage here
 
 storage.reload()
+

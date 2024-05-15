@@ -71,3 +71,4 @@ class FileStorage:
                 if obj == fobj:
                     del FileStorage.__objects[obj]
                     break
+
