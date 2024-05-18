@@ -4,3 +4,11 @@ x
 
 __pycache__
 
+*.json
+__py*
+main*
+README2.md
+versions/
+
+tars/
+2.0
