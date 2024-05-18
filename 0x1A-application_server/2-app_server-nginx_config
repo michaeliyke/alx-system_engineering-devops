@@ -1,0 +1,15 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	# server_name anexe.tech www.anexe.tech;
+	server_name 100.25.13.200;
+
+	location /airbnb-onepage {
+		include proxy_params;
+		proxy_pass  http://0.0.0.0:5000;
+		# the socket file you configured in uwsgi
+		# proxy_pass http://unix:/home/ubuntu/AirBnB_clone_v2/web01.sock;
+
+	}
+
+}

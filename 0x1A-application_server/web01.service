@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve web01
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/AirBnB_clone_v2
+Environment="PATH=/home/ubuntu/.local/bin/"
+ExecStart=/home/ubuntu/.local/bin/gunicorn --workers 3 --bind unix:web01.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
