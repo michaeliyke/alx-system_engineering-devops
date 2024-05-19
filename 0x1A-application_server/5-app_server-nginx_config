@@ -1,0 +1,42 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	# server_name anexe.tech www.anexe.tech;
+	server_name 100.25.13.200;
+
+	location /airbnb-onepage {
+		include proxy_params;
+		proxy_pass  http://0.0.0.0:5000;
+		# the socket file you configured in uwsgi
+		# proxy_pass http://unix:/home/ubuntu/AirBnB_clone_v2/web01.sock;
+
+	}
+
+	location /airbnb-dynamic/number_odd_or_even/ {
+		include proxy_params;
+		proxy_pass  http://0.0.0.0:5001;
+		# the socket file you configured in uwsgi
+		# proxy_pass http://unix:/home/ubuntu/AirBnB_clone_v2/web01.sock;
+		# Capture the int after the / and rewrite the path to /number_odd_or_even/int
+		rewrite ^/airbnb-dynamic/number_odd_or_even/(.+)$ /number_odd_or_even/$1 break;
+	}
+
+	location /api/ {
+		include proxy_params;
+		proxy_pass  http://0.0.0.0:5002;
+		# the socket file you configured in uwsgi
+		# proxy_pass http://unix:/home/ubuntu/AirBnB_clone_v2/web01.sock;
+		# Capture the int after the / and rewrite the path to /number_odd_or_even/int
+		# rewrite ^/api/(.+)$ /$1 break;
+		}
+
+	location /web_dynamic/static/ {
+		include proxy_params;
+		proxy_pass  http://0.0.0.0:5003;
+		}
+
+	location / {
+		include proxy_params;
+		proxy_pass  http://0.0.0.0:5003;
+		}
+}
