@@ -30,13 +30,14 @@ server {
 		# rewrite ^/api/(.+)$ /$1 break;
 		}
 
-	location /web_dynamic/static/ {
-		include proxy_params;
-		proxy_pass  http://0.0.0.0:5003;
+	location /static {
+		proxy_pass http://0.0.0.0:5003;
 		}
 
 	location / {
 		include proxy_params;
 		proxy_pass  http://0.0.0.0:5003;
 		}
+
+		add_header X-Served-By $hostname;
 }
